@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     },
     gridList: {
         display: 'flex',
-        flexGrow: 1,
-        // width: '80vw',
+        // flexGrow: 1,
+        width: '80vw',
         // // height: '100vh',
     },
     eachCategory: {
@@ -70,7 +70,7 @@ export default function CategoryList() {
 
     const fetchCategoryList = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/categoryList/')
+            const response = await axios.get('https://recipe-blog-django-backend.herokuapp.com/api/categoryList/')
             console.log(response)
             setCategoryList(response?.data)
         } catch (error) {
