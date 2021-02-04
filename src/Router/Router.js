@@ -7,7 +7,8 @@ const BlogRouter = () => {
         <Router>
             <Navbar/>
             <Switch>
-                <Route path="/" component={Home} />
+                <Route path = "/" component = {Home} />
+                {/* <Route path = '/register' component = {SignUp} /> */}
             </Switch>
         </Router>
     )
