@@ -70,7 +70,7 @@ export default function CategoryList() {
 
     const fetchCategoryList = async () => {
         try {
-            const response = await axios.get('https://recipe-blog-django-backend.herokuapp.com/api/categoryList/')
+            const response = await axios.get('https://recipe-blog-django-backend.herokuapp.com/api/categoryList')
             console.log(response)
             setCategoryList(response?.data)
         } catch (error) {
