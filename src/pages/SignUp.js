@@ -1,69 +1,107 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
-const SignupForm = () => {
+import { userName, email, password } from "../utils/validations";
+import { postData } from '../services/postData';
+import { Container, TextField } from '@material-ui/core';
+
+const validationSchema = yup.object({
+    userName,
+    email,
+    password,
+    password2: password
+})
+
+export const SignUp = () => {
     // Note that we have to initialize ALL of fields with values. These
     // could come from props, but since we don’t want to prefill this form,
     // we just use an empty string. If we don’t do this, React will yell
     // at us.
     const formik = useFormik({
         initialValues: {
-            firstName: '',
-            lastName: '',
+            userName: '',
             email: '',
+            password: '',
+            password2: '',
         },
-        validationSchema: Yup.object({
-            firstName: Yup.string()
-                .max(15, 'Must be 15 characters or less')
-                .required('Required'),
-            lastName: Yup.string()
-                .max(20, 'Must be 20 characters or less')
-                .required('Required'),
-            email: Yup.string().email('Invalid email address').required('Required'),
-        }),
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        validationSchema: validationSchema,
+        onSubmit: async (values) => {
+            console.log('values', values);
+            try {
+                const response = await postData(
+                    'https://recipe-blog-django-backend.herokuapp.com/api/users/register/',
+                    values
+                );
+                console.log(response?.data);
+            } catch ({ response }) {
+                if (response) {
+                    console.log(response.data.non_field_errors[0]);
+                } else {
+                    console.log('Something went wrong')
+                }
+            }
         },
     });
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="firstName">First Name</label>
-            <input
-                id="firstName"
-                name="firstName"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.firstName}
-            />
+        <Container maxWidth='sm'>
+            <form onSubmit={formik.handleSubmit}>
+                <TextField
+                    fullWidth
+                    margin='normal'
+                    variant="outlined"
+                    id="userName"
+                    name="userName"
+                    label='Username'
+                    onChange={formik.handleChange}
+                    value={formik.values.userName}
+                    error={formik.touched.username && Boolean(formik.errors.username)}
+                    helperText={formik.touched.username && formik.errors.username}
+                />
 
-            <label htmlFor="lastName">Last Name</label>
-            <input
-                id="lastName"
-                name="lastName"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.lastName}
-            />
+                <TextField
+                    fullWidth
+                    margin='normal'
+                    variant="outlined"
+                    id="email"
+                    name="email"
+                    label='Email Address'
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                />
 
-            <label htmlFor="email">Email Address</label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-            />
-            <label htmlFor="email">Email Address</label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-            />
+                <TextField
+                    fullWidth
+                    margin='normal'
+                    variant="outlined"
+                    id="password"
+                    name="password"
+                    label='Password'
+                    onChange={formik.handleChange}
+                    type = 'password'
+                    value={formik.values.password}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                />
+                <TextField
+                    fullWidth
+                    margin='normal'
+                    variant="outlined"
+                    id="password2"
+                    name="password2"
+                    label='Confirm Password'
+                    onChange={formik.handleChange}
+                    type = 'password'
+                    value={formik.values.password2}
+                    error={formik.touched.password2 && Boolean(formik.errors.password2)}
+                    helperText={formik.touched.password2 && formik.errors.password2}
+                />
 
-            <button type="submit">Submit</button>
-        </form>
+
+                <button type="submit">Submit</button>
+            </form>
+        </Container>
     );
 };
