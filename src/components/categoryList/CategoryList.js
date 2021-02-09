@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function CategoryList() {
     const [categoryList, setCategoryList] = useState();
+    const [selectedCategory, setSelectedCategory] = useState()
 
     const fetchCategoryList = async () => {
         try {
@@ -92,6 +93,7 @@ export default function CategoryList() {
                 </GridListTile>
                 {categoryList?.map((category) => (
                     <GridListTile
+                        onClick = {setSelectedCategory(category?.name)}
                         className={classes.eachCategory}
                         key={category?.img}
                     >
