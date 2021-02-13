@@ -1,11 +1,16 @@
-import CategoryList from '../components/categoryList/CategoryList'
+import React, {useState} from 'react';
+import CategoryList from '../components/categoryList/CategoryList';
 
-const MainPage  = () => {
+export const Home  = () => {
+    const [selectedCategory, setSelectedCategory] = useState('Main Dish');
+    // console.log(selectedCategory)
+
     return(
         <div>
-            <CategoryList />
+            <CategoryList 
+                selectedCategory = {selectedCategory}
+                setSelectedCategory = {setSelectedCategory}
+            />
         </div>
     )
 }
-
-export default MainPage

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     GridList,
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     eachCategory: {
         // width: '80vw',
         height: '500px',
+    },
+    img: {
+        cursor: 'pointer'
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
@@ -65,22 +69,30 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-export default function CategoryList() {
-    const [categoryList, setCategoryList] = useState();
-    const [selectedCategory, setSelectedCategory] = useState()
+export default function CategoryList({ selectedCategory, setSelectedCategory }) {
+    const [categoryList, setCategoryList] = useState([]);
 
-    const fetchCategoryList = async () => {
+    const history = useHistory();
+
+    const getCategoryList = async () => {
         try {
             const response = await axios.get('https://recipe-blog-django-backend.herokuapp.com/api/categoryList')
-            console.log(response)
+            console.log(response?.data);
             setCategoryList(response?.data)
         } catch (error) {
             console.error(error)
         }
     }
 
+    const onSelectCategory = (category) => {
+        setSelectedCategory(category);
+        console.log('selectedCategory', selectedCategory)
+        history.push('/recipeList');
+        
+    }
+
     useEffect(() => {
-        fetchCategoryList()
+        getCategoryList()
     }, [])
 
     const classes = useStyles();
@@ -93,16 +105,25 @@ export default function CategoryList() {
                 </GridListTile>
                 {categoryList?.map((category) => (
                     <GridListTile
-                        onClick = {setSelectedCategory(category?.name)}
+                        // onClick = {(e) => {onSelectCategory(e,category?.name)}}
                         className={classes.eachCategory}
                         key={category?.img}
                     >
-                        <img src={category?.img} alt={category?.name} />
+                        <img
+                            className={classes.img}
+                            src={category?.img}
+                            alt={category?.name}
+                            onClick={() => onSelectCategory(category?.name)}
+                        />
                         <GridListTileBar
                             title={category?.name}
                             subtitle={<span>Number of Recipe: {category?.recipe_count}</span>}
                             actionIcon={
-                                <IconButton aria-label={`info about ${category?.name}`} className={classes.icon}>
+                                <IconButton
+                                    onClick={() => onSelectCategory(category?.name)}
+                                    aria-label={`info about ${category?.name}`}
+                                    className={classes.icon}
+                                >
                                     <InfoIcon />
                                 </IconButton>
                             }
