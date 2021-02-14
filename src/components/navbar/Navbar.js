@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
-import EcoIcon from "@material-ui/icons/Eco";
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import { appContext } from "../../context/AppContext";
@@ -16,6 +16,9 @@ import { appContext } from "../../context/AppContext";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+    },
+    navBar: {
+        backgroundColor: '#65394C'
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -58,7 +61,7 @@ export const Navbar = () => {
     return (
         <div className={classes.root}>
             <FormGroup></FormGroup>
-            <AppBar position="static">
+            <AppBar className = {classes.navBar} position="static">
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -67,10 +70,10 @@ export const Navbar = () => {
                         aria-label="menu"
                         onClick={handleMainPage}
                     >
-                        <EcoIcon />
+                        <LocalDiningIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Awesome Blog
+                        Recipe Blog
                     </Typography>
                     {token ? (
                         <div>

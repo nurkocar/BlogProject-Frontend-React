@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,7 @@ import {
     from '@material-ui/core';
 
 import InfoIcon from '@material-ui/icons/Info';
+import { appContext } from "../../context/AppContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,8 +70,9 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-export default function CategoryList({ selectedCategory, setSelectedCategory }) {
+export default function CategoryList() {
     const [categoryList, setCategoryList] = useState([]);
+    const { selectedCategory, setSelectedCategory } = useContext(appContext);
 
     const history = useHistory();
 

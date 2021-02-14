@@ -7,7 +7,9 @@ const { Provider } = appContext;
 
 export const AppContextProvider = ({ children }) => {
     const [token, setToken] = useState(null);
-    return <Provider value={{ token, setToken }}>{children}</Provider>;
+    const [selectedCategory, setSelectedCategory] = useState('Main Dish');
+
+    return <Provider value={{ token, setToken, selectedCategory, setSelectedCategory }}>{children}</Provider>;
 };
 
 AppContextProvider.propTypes = {

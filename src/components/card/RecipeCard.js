@@ -15,6 +15,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Title } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,25 +40,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeCard({ author, count_ingredient, count_like, image, title }) {
     const classes = useStyles();
-    
-    // const [recipeList, setRecipeList] = useState();
-
-    // const fetchRecipeList = async () => {
-    //     try {
-    //         const response = await axios.get('https://recipe-blog-django-backend.herokuapp.com/api/list/${selectedCategory}')
-    //         console.log(response)
-    //         setRecipeList(response?.data)
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchRecipeList()
-    // }, [])
-
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -69,7 +53,7 @@ export default function RecipeReviewCard() {
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
+                        {author?.charAt(0)}
           </Avatar>
                 }
                 action={
@@ -77,12 +61,12 @@ export default function RecipeReviewCard() {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
+                title={title}
                 subheader="September 14, 2016"
             />
             <CardMedia
                 className={classes.media}
-                image="/static/images/cards/paella.jpg"
+                image={image}
                 title="Paella dish"
             />
             <CardContent>
