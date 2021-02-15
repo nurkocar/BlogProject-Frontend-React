@@ -27,7 +27,7 @@ export const RecipeList = () => {
     }, [])
 
     return (
-        <div>
+        <div style = {{display: 'flex', margin: '3%'}} >
             {recipeList?.map((recipe) => (
                 <RecipeCard
                     id = {recipe?.id}
@@ -36,6 +36,10 @@ export const RecipeList = () => {
                     count_like = {recipe?.count_like}
                     image = {recipe?.image}
                     title = {recipe?.title}
+                    info = {recipe?.info}
+                    published_date = {recipe?.published_date}
+                    method = {recipe?.method}
+
                     
                 />
             ))}
