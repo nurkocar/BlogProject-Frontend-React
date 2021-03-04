@@ -8,22 +8,18 @@ export const RecipeList = () => {
     const { selectedCategory } = useContext(appContext);
     const [recipeList, setRecipeList] = useState();
 
-
     const getRecipeList = async () => {
         try {
             const response = await axios.get(`https://recipe-blog-django-backend.herokuapp.com/api/list/${selectedCategory}`)
             console.log(response?.data?.results);
             setRecipeList(response?.data?.results);
-
         } catch (error) {
             console.error(error)
         }
-
     }
 
     useEffect(() => {
         getRecipeList()
-        console.log(recipeList);
     }, [])
 
     return (
@@ -39,8 +35,6 @@ export const RecipeList = () => {
                     info = {recipe?.info}
                     published_date = {recipe?.published_date}
                     method = {recipe?.method}
-
-                    
                 />
             ))}
         </div>

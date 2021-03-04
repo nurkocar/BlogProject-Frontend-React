@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { useHistory, useParams } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -21,7 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        maxWidth: 1200,
         marginLeft: '3%'
     },
     media: {
@@ -61,15 +59,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function RecipeCard({ author, count_ingredient, count_like, image, title, info, published_date, method }) {
+export default function RecipeCard({ author, count_ingredient, count_like, image, title, info, published_date, method, onRecipeClick }) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const history = useHistory()
-    let id = useParams()
 
-    const handleRecipeClick = () => {
-        history.push(`/recipeDetail/${id}`)
-    }
+    // const handleRecipeClick = () => {
+    //     setSelectedRecipe()
+    // }
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -77,9 +73,6 @@ export default function RecipeCard({ author, count_ingredient, count_like, image
 
     return (
         <Card className={classes.root}>
-            <CardActionArea 
-                onClick = {handleRecipeClick}
-            >
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
@@ -94,7 +87,6 @@ export default function RecipeCard({ author, count_ingredient, count_like, image
                     image={image}
                     title={title}
                 />
-            </CardActionArea>
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {info}
@@ -134,7 +126,7 @@ export default function RecipeCard({ author, count_ingredient, count_like, image
                         {method.slice(0, 100)}...
                     </Typography>
                     <Button
-                        onClick = {handleRecipeClick} 
+                        // onClick = {handleRecipeClick} 
                         color="secondary" 
                         className={classes.button}>More
                     </Button>
