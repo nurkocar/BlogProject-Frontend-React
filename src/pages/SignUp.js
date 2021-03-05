@@ -2,12 +2,12 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-import { userName, email, password } from "../utils/validations";
+import { username, email, password } from "../utils/validations";
 import { postData } from '../services/postData';
 import { Container, TextField } from '@material-ui/core';
 
 const validationSchema = yup.object({
-    userName,
+    username,
     email,
     password,
     password2: password
@@ -20,7 +20,7 @@ export const SignUp = () => {
     // at us.
     const formik = useFormik({
         initialValues: {
-            userName: '',
+            username: '',
             email: '',
             password: '',
             password2: '',
@@ -33,6 +33,7 @@ export const SignUp = () => {
                     'https://recipe-blog-django-backend.herokuapp.com/api/users/register/',
                     values
                 );
+                //toastify
                 console.log(response?.data);
             } catch ({ response }) {
                 if (response) {
@@ -50,8 +51,8 @@ export const SignUp = () => {
                     fullWidth
                     margin='normal'
                     variant="outlined"
-                    id="userName"
-                    name="userName"
+                    id="username"
+                    name="username"
                     label='Username'
                     onChange={formik.handleChange}
                     value={formik.values.userName}
