@@ -31,7 +31,6 @@ export const SignIn = () => {
                     'https://recipe-blog-django-backend.herokuapp.com/auth/login/',
                     values
                 );
-                //toastify
                 console.log(response?.data);
                 history.push('/')
 

@@ -37,7 +37,7 @@ export const SignUp = () => {
                 );
                 //toastify
                 console.log(response?.data);
-                history.push('/')
+                history.push('/login')
 
             } catch ({ response }) {
                 if (response) {
