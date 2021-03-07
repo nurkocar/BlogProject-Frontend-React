@@ -1,6 +1,6 @@
 import { string } from "yup";
 
-export const userName =  string('Enter your username please')
+export const username =  string('Enter your username please')
     .max(15, 'Must be 15 characters or less')
     .required('Username is required')
 
