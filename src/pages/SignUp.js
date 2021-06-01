@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { username, email, password } from "../utils/validations";
 import { postData } from '../services/postData';
 import { Container, TextField } from '@material-ui/core';
+import Button from "@material-ui/core/Button";
 
 const validationSchema = yup.object({
     username,
@@ -59,7 +60,7 @@ export const SignUp = () => {
                     name="username"
                     label='Username'
                     onChange={formik.handleChange}
-                    value={formik.values.userName}
+                    value={formik.values.username}
                     error={formik.touched.username && Boolean(formik.errors.username)}
                     helperText={formik.touched.username && formik.errors.username}
                 />
@@ -85,7 +86,7 @@ export const SignUp = () => {
                     name="password"
                     label='Password'
                     onChange={formik.handleChange}
-                    type = 'password'
+                    type='password'
                     value={formik.values.password}
                     error={formik.touched.password && Boolean(formik.errors.password)}
                     helperText={formik.touched.password && formik.errors.password}
@@ -98,14 +99,20 @@ export const SignUp = () => {
                     name="password2"
                     label='Confirm Password'
                     onChange={formik.handleChange}
-                    type = 'password'
+                    type='password'
                     value={formik.values.password2}
                     error={formik.touched.password2 && Boolean(formik.errors.password2)}
                     helperText={formik.touched.password2 && formik.errors.password2}
                 />
 
 
-                <button type="submit">Submit</button>
+                <Button
+                    color='primary'
+                    variant='contained'
+                    type="submit"
+                >
+                    Submit
+                </Button>
             </form>
         </Container>
     );

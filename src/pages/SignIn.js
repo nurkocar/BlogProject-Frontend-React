@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom'
@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom'
 import { email, password } from "../utils/validations";
 import { postData } from '../services/postData';
 import { Container, TextField } from '@material-ui/core';
+import { appContext } from '../context/AppContext';
+import Button from "@material-ui/core/Button";
 
 const validationSchema = yup.object({
     email,
@@ -17,7 +19,9 @@ export const SignIn = () => {
     // could come from props, but since we don’t want to prefill this form,
     // we just use an empty string. If we don’t do this, React will yell
     // at us.
-    const history = useHistory()
+    const history = useHistory();
+    const { token, setToken } = useContext(appContext);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,6 +35,9 @@ export const SignIn = () => {
                     'https://recipe-blog-django-backend.herokuapp.com/auth/login/',
                     values
                 );
+                setToken(response?.data?.key);
+                localStorage.setItem('token', response?.data?.key);
+
                 console.log(response?.data);
                 history.push('/')
 
@@ -73,7 +80,13 @@ export const SignIn = () => {
                     helperText={formik.touched.password && formik.errors.password}
                 />
 
-                <button type="submit">Submit</button>
+                <Button 
+                    color='primary'
+                    variant='contained'
+                    type="submit"  
+                >
+                    Submit
+                </Button>
             </form>
         </Container>
     );
